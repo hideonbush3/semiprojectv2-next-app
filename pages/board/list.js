@@ -33,13 +33,13 @@ export default function List(props) {
                     <th>조회</th>
                 </tr>
                 {props.board.map((bd) => (
-                <tr key={bd.bno}>
-                    <td>{bd.bno}</td>
-                    <td>{bd.title}</td>
-                    <td>{bd.userid}</td>
-                    <td>{bd.regdate}</td>
-                    <td>{bd.views}</td>
-                </tr>
+                    <tr key={bd.bno}>
+                        <td>{bd.bno}</td>
+                        <td>{bd.title}</td>
+                        <td>{bd.userid}</td>
+                        <td>{bd.regdate}</td>
+                        <td>{bd.views}</td>
+                    </tr>
                 ))}
                 </tbody>
             </table>
