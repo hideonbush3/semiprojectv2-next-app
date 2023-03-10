@@ -1,13 +1,21 @@
 import fetch from "isomorphic-unfetch";
 
-List.getInitialProps = async function (ctx) {
-    const res = await fetch(
-        `http://localhost:3000/api/board/list`);
-    const board = await res.json();
-    return { board: board }
+
+export async function getServerSideProps(ctx) {
+    let [ cpg, ftype, fkey ] = [ ctx.query.cpg, ctx.query.ftype, ctx.query.fkey ];
+
+    cpg = cpg ? parseInt(cpg) : 1;
+    let params = `cpg=${cpg}`;
+    let url = `http://localhost:3000/api/board/list?${params}`
+
+    const res = await fetch(url);
+    const boards = await res.json();
+
+    return { props : { boards } };
 }
 
-export default function List(props) {
+export default function List({ boards }) {
+
     return (
         <main>
             <h2>게시판</h2>
@@ -32,14 +40,14 @@ export default function List(props) {
                     <th>작성일</th>
                     <th>조회</th>
                 </tr>
-                {props.board.map((bd) => (
-                    <tr key={bd.bno}>
-                        <td>{bd.bno}</td>
-                        <td>{bd.title}</td>
-                        <td>{bd.userid}</td>
-                        <td>{bd.regdate}</td>
-                        <td>{bd.views}</td>
-                    </tr>
+                {boards.boards.map((bd) => (
+                <tr key={bd.bno}>
+                    <td>{bd.bno}</td>
+                    <td>{bd.title}</td>
+                    <td>{bd.userid}</td>
+                    <td>{bd.regdate}</td>
+                    <td>{bd.views}</td>
+                </tr>
                 ))}
                 </tbody>
             </table>
