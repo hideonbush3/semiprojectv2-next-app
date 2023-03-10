@@ -2,6 +2,7 @@
 import fetch from "isomorphic-unfetch";
 import axios from "axios";
 import {useState} from "react";
+import Link from "next/link";
 
 const getStpgns = (cpg, alpg) => {
     let stpgns = [];
@@ -33,6 +34,7 @@ export async function getServerSideProps(ctx) {
     let [cpg, ftype, fkey] = [ctx.query.cpg, ctx.query.ftype, ctx.query.fkey];
 
     cpg = cpg ? parseInt(cpg) : 1;
+
     let params = `cpg=${cpg}`;  // 질의문자열 생성
     if(fkey) params += `&ftype=${ftype}&fkey=${fkey}`;
 
@@ -109,7 +111,7 @@ export default function List({ boards }) {
                 {boards.boards.map((bd) => (
                 <tr key={bd.bno}>
                     <td>{bd.bno}</td>
-                    <td>{bd.title}</td>
+                    <td><Link href={`/board/view?bno=${bd.bno}`}>{bd.title}</Link></td>
                     <td>{bd.userid}</td>
                     <td>{bd.regdate}</td>
                     <td>{bd.views}</td>
