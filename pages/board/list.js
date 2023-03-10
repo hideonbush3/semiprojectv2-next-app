@@ -1,4 +1,7 @@
+// 그냥 fetch를 사용해서 요청하면 질의문자열의 uri에 인코딩하는 코드를 써야함
 import fetch from "isomorphic-unfetch";
+import axios from "axios";
+import {useState} from "react";
 
 const getStpgns = (cpg, alpg) => {
     let stpgns = [];
@@ -30,11 +33,16 @@ export async function getServerSideProps(ctx) {
     let [cpg, ftype, fkey] = [ctx.query.cpg, ctx.query.ftype, ctx.query.fkey];
 
     cpg = cpg ? parseInt(cpg) : 1;
-    let params = `cpg=${cpg}`;
+    let params = `cpg=${cpg}`;  // 질의문자열 생성
+    if(fkey) params += `&ftype=${ftype}&fkey=${fkey}`;
+
     let url = `http://localhost:3000/api/board/list?${params}`
 
-    const res = await fetch(url);
-    const boards = await res.json();
+    // const res = await fetch(url);   // isomorphic-unfetch의 fetch임
+    // const boards = await res.json();
+
+    const res = await axios.get(url);   // axios 방식
+    const boards = await res.data;
 
     let alpg = Math.ceil(parseInt(boards.allcnt) / 25);  // 총 페이지수 계산
 
@@ -52,7 +60,16 @@ export async function getServerSideProps(ctx) {
 }
 
 export default function List({ boards }) {
+    const [ftype, setFtype] = useState('title') // 검색의 select 태그
+    const [fkey, setFkey] = useState(undefined) // 검색의 input 태그
 
+    const handletype = (e) => { setFtype(e.target.value) };
+    const handlekey = (e) => { setFkey(e.target.value) };
+    const handlefind = (e) => { // 검색하기 버튼
+        // fkey(input 태그)의 값이 존재할때 검색하기 버튼 클릭하면
+        // ?ftype=${ftype}$fkey=${fkey} 으로 이동
+        if(fkey) location.href = `?ftype=${ftype}$fkey=${fkey}`;
+    };
     return (
         <main>
             <h2>게시판</h2>
@@ -66,10 +83,18 @@ export default function List({ boards }) {
                 </colgroup>
                 <tbody>
                 <tr>
-                    <td colSpan="5" className="alignrgt">
-                        <button type="button">새글쓰기</button>
-                    </td>
-                </tr>
+                    <td colSpan="3" className="alignlft">
+                        <select name="ftype" id="ftype" onChange={handletype}>
+                            <option value="title">제 목</option>
+                            <option value="userid">작성자</option>
+                            <option value="contents">본 문</option>
+                        </select>
+                        <input type="text" name="fkey" id="fkey" onChange={handlekey}/>
+                            <button type="button" id="findbtn" onClick={handlefind}>검색하기</button>
+                                </td>
+                                <td colspan="2" class="alignrgt">
+                                <button type="button" id="newbtn">새글쓰기</button></td>
+                                </tr>
                 <tr>
                     <th>번호</th>
                     <th>제목</th>
