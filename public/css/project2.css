@@ -3,7 +3,7 @@
 #wrapper { width: 960px; margin: 0 auto; }
 
 nav ul { list-style: none; margin: 0; padding: 0 }
-nav ul li { display: inline-block; padding: 0 65px; }
+nav ul li { display: inline-block; padding: 0 60px; }
 
 a:link { color: black; text-decoration: none; font-weight: bold; }
 a:visited { color: black; }
@@ -24,10 +24,10 @@ form input { padding: 5px }
 button { padding: 5px 7px }
 
 /* 새글쓰기, 본문보기 */
-#writefrm { width: 560px}
+#writefrm { width: 560px; }
 .drgup { vertical-align: top }
 
-/* 화원정보 */
+/* 회원정보 */
 .myinfo, .myinfo td { /*border: 1px solid black;*/ }
 .myinfo { border-collapse: collapse; width: 300px;
         margin: 0 auto; }
@@ -35,7 +35,7 @@ button { padding: 5px 7px }
 .myinfo td:first-child { font-weight: bold;
         text-align: right }
 
-/* 게시판 */
+/* 게시판 목록 */
 .board { width: 700px; margin: 0 auto;
         table-layout: fixed; border-collapse: collapse }
 
@@ -47,13 +47,33 @@ button { padding: 5px 7px }
 .board tr:nth-child(odd) { background: #e4f7ba }
 .board tr:nth-child(even) { background: #cef279 }
 .alignrgt { text-align-last: right }
+.alignlft { text-align-last: left }
 
 .pagenation { list-style: none; padding: 0;
-        margin: 0 auto; width: 435px }
+        margin: 0 auto; text-align:center; width: 100% }
 .pagenation li { display: inline-block; padding: 10px; }
 .cpage { font: bold 48px '맑은 고딕'; color: red }
 .prev { color: #cccccc }
 
-.logo{
-padding: 50px 110px; width: 75%
+select { padding: 3.3px }
+input[type="text"] { padding: 5px }
+
+.active {
+        background-color: #0099FF; color: white !important;
+        padding: 15px 30px
 }
+
+.logo { padding: 50px 110px ; width: 75% }
+
+/* 게시판 본문보기 */
+#view { width: 700px; margin: 0 auto; }
+#view label { display: inline-block; width: 110px;
+        text-align: right; font-weight: bold;
+        margin-right: 10px }
+#view #contents { border: 1px solid #eeeeee;
+        display: inline-block;
+        width: 560px; min-height: 350px;
+        white-space: pre }
+
+/* 새글쓰기의 recaptcha */
+.cap{ display: inline-flex; padding: 0; margin: -15px 0 0 -10px;}
