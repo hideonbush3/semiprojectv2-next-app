@@ -8,7 +8,7 @@ let boardsql = {
     select1: ` select bno, title, userid, date_format(regdate, "%Y-%m-%d") regdate, views from board `,
     select2: ` order by bno desc limit ?, 25 `,
 
-    selectOne: ' select bno, title, userid, date_format(regdate, "%Y-%m-%d") regdate, views from board where bno = ? ',
+    selectOne: ' select bno, title, userid, date_format(regdate, "%Y-%m-%d") regdate, contents, views from board where bno = ? ',
 
     selectCount: 'select count(bno) cnt from board ',
 
@@ -41,12 +41,14 @@ class Board {
 
     static newOne(title, userid, contents) {
         return new Board(null, title, userid, null, contents, null)
-
     }
 
     static modifyOne(bno, title, contents) {
         return new Board(bno, title,null, null, contents, null)
+    }
 
+    static joinOne(userid, password, name, email) {
+        return new Board(bno, title,null, null, contents, null)
     }
 
     async insert() {  // 새글쓰기
