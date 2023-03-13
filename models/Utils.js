@@ -8,4 +8,16 @@ const check_captcha = async (response) => {
     return (await data).success;
 };
 
-module.exports = {check_captcha}
+const handleInput = (setInput, e) => {setInput(e.target.value)};
+
+const process_submit = async (url, data) => {
+    const cnt = fetch(url, {
+        method: 'POST', mode: 'cors',
+        body: JSON.stringify(data), // 보내는 내용
+        headers: {'Content-Type': 'application/json'} // 유형
+    }).then(res => res.json());
+
+    return (await cnt).cnt;
+};
+
+module.exports = {check_captcha, handleInput, process_submit}
