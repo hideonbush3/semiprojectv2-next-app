@@ -7,6 +7,7 @@ const hashPassword = async (passwd) => {
     try {
         const salt = await bcrypt.genSalt(saltRounds)
         const hash = await bcrypt.hash(passwd, salt);
+        console.log(await hash);
         return await hash;
     } catch (err) {
         console.log(err)
@@ -34,8 +35,8 @@ export default async (req, res) => {
         let isMatch1 = await comparePasswd('abc123', hashed1)
         let isMatch2 = await comparePasswd('123xyz', hashed2)
 
-        console.log('auth - bcript ', hashed1, hashed2);
-        console.log('auth - bcript ', isMatch1, isMatch2);
+        // console.log('auth - bcript ', hashed1, hashed2);
+        // console.log('auth - bcript ', isMatch1, isMatch2);
 
         res.status(200).json({hashed1: await hashed1, hashed2: await hashed2})
     }catch (err){
