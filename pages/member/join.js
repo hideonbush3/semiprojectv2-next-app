@@ -43,7 +43,7 @@ export default function Join() {
                            onChange={e => handleInput(setEmail, e)}/></div>
 
                 <div><label></label>
-                    <div className="g-recaptcha cap" data-sitekey={process.env.SITE_KEY}></div>
+                    <div className="g-recaptcha cap2" data-sitekey={process.env.SITE_KEY}></div>
                 </div>
 
                 <div><label></label>
