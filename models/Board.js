@@ -51,7 +51,7 @@ class Board {
         return new Board(bno, title,null, null, contents, null)
     }
 
-    async insert() {  // 새글쓰기
+    async insert() {  // 게시글 작성
         let conn = null;
         let params = [this.title, this.userid, this.contents];
         let insertcnt = 0;

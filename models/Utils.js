@@ -17,8 +17,7 @@ const process_submit = async (url, data) => {
         method: 'POST', mode: 'cors',
         body: JSON.stringify(data),
         headers: {'Content-Type': 'application/json'}
-    }).then(res => res.json());
-
+    }).then(res => res.json()); // json()은 JSON.parse 메소드로 JSON 문자열을 자바스크립트 객체로 만듦
     return (await cnt).cnt;
 };
 

@@ -11,8 +11,7 @@ export default async (req, res) => {
         const cnt = Board.newOne(title, userid, contents).insert()
             .then(result => result)
 
-        console.log(await cnt);
-        res.status(200).json({cnt: await cnt});
+        res.status(200).json({cnt: await cnt}); // 최종적으로 {"cnt": "1"} 이 전달될 것임
     }catch(err){
         res.status(500).json(err);
     }
