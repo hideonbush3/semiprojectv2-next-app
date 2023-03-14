@@ -14,9 +14,9 @@ const Header = () => {
               프리렌더링이라 페이지를 미리 만들어두기 때문이다 그래서 프리렌더링으로 작동하지 않게 하기 위해서
               회원가입 태그는 a태그를 사용한다*/}
             <li><a href="/member/join">회원가입</a></li>
-            <li><Link href="/member/login">로그인</Link></li>
+            <li><a href="/member/login">로그인</a></li>
             <li><Link href="/board/list">게시판</Link></li>
-            <li><Link href="/member/MyInfo">회원정보</Link></li>
+            <li><Link href="/member/myinfo">회원정보</Link></li>
           </ul>
           <hr />
         </nav>
