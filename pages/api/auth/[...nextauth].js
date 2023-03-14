@@ -14,9 +14,11 @@ export default NextAuth({
                 passwd: { label: "비밀번호", type: "password" }
             },
             async authorize(credentials, req) {
-                // 아무거나 입력해도 그냥 로그인 됨
-                console.log('auth login - ', credentials);
-                return credentials;
+                // 폼에 입력한 이메일, 비밀번호 값 가져옴
+                const email = credentials.email;
+                const passwd = credentials.passwd;
+
+                if(email === 'asd123@asd.com' && passwd === 'asd123') return credentials;
             }
         })
     ]
