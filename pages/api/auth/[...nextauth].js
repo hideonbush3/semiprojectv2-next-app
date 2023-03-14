@@ -8,18 +8,39 @@ export default NextAuth({
     providers: [
         Credentials({
             // 로그인 폼 정의
-            name: 'email-passwd-credentials',
+            name: 'userid-passwd-credentials',
             credentials: {
-                email: { label: "이메일", type: "email" },
+                userid: { label: "아이디", type: "text" },
                 passwd: { label: "비밀번호", type: "password" }
             },
             async authorize(credentials, req) {
                 // 폼에 입력한 이메일, 비밀번호 값 가져옴
-                const email = credentials.email;
+                const userid = credentials.userid;
                 const passwd = credentials.passwd;
 
-                if(email === 'asd123@asd.com' && passwd === 'asd123') return credentials;
+
+                if(userid === 'asd123' && passwd === 'asd123')
+                    return credentials;
             }
         })
-    ]
+    ],
+    callbacks: {
+        // jwt는 json web token의 약자임
+        async jwt(token, user, account, profile, isNewUser) {
+            console.log('jwt - ', user);
+            // user 객체가 존재하고 userid 값이 있다면
+            // 옵셔널 체이닝
+            if(user?.userid) token.userid = user.userid;
+
+            return token;
+        },
+        // session, userOrToken
+        async session(session, userOrToken) {
+            console.log('session - ', userOrToken);
+            session.user.userid = userOrToken.userid;
+
+            return session;
+        }
+
+    }
 })
